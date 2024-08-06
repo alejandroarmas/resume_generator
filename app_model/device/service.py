@@ -14,9 +14,9 @@ class DeviceService(Service[DeviceCreate, DeviceUpdate]):
     collection_name = "devices"
 
     indexes = {
-        "unique-code": IndexData(
-            keys="code",
-            unique=True,
+        "company": IndexData(
+            keys="company",
+            unique=False,
             collation={"locale": "en", "strength": 1},
         )
     }

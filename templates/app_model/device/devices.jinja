@@ -16,12 +16,12 @@ Required context:
     <div class="flex">
         <div class="flex-1">
             <button class="btn btn-primary" hx-trigger="click" hx-post="/device-ui/" hx-target="#dialog-container">New
-                Device</button>
+                Job Application</button>
         </div>
         <div class="flex-none">
             <label class="input input-bordered flex items-center gap-2 w-80">
                 {# Active search for devices. #}
-                <input type="search" name="code" class="grow w-full" placeholder="Search by device code"
+                <input type="search" name="company" class="grow w-full" placeholder="Search by Company"
                     hx-trigger="input changed delay:500ms, search, {{ device_events }}" hx-get="/device/"
                     hx-target="#devices-table" />
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"

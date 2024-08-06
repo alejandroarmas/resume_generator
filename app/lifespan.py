@@ -12,12 +12,12 @@ async def _create_demo_data(db: AgnosticDatabase) -> None:
     from app_model.device.service import DeviceService
 
     svc = DeviceService(db)
-    for code, location in (
-        ("coffee-machine-4", "ams-office-1-floor-1"),
-        ("espresso-13", "bud-office"),
-        ("barista-1-37", "remote"),
+    for company, title, job_url, location, description in (
+        ("Amazon", "Software Engineer", "https://amazon.com", "Seattle, WA", "sample-description"),
+        ("Microsoft", "Software Engineer", "https://microsoft.com", '', "sample-description"),
+        ("Nvidia", "Software Engineer", "https://nvidia.com", "Santa Clara, CA", "sample-description"),
     ):
-        await svc.create(DeviceCreate(code=code, location=location))
+        await svc.create(DeviceCreate(company=company, title=title, job_posting_url=job_url, location=location, description=description))
 
 
 @asynccontextmanager

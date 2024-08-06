@@ -38,9 +38,9 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device")
 
     @api.get("/")
     @jinja.hx(f"{template_prefix}/devices-table.jinja")
-    async def get_all(service: DependsService, code: str | None = None) -> list[Device]:
+    async def get_all(service: DependsService, company: str | None = None) -> list[Device]:
         try:
-            query = None if code is None else {"code": {"$regex": code}}  # Basic substring search.
+            query = None if company is None else {"company": {"$regex": company}}  # Basic substring search.
             return [Device.model_validate(d) async for d in service.find(query).sort({"code": 1})]
         except ValidationError as e:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Schema mismatch") from e

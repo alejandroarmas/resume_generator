@@ -24,20 +24,29 @@ class HXDeviceEvent:
 class Device(Document):
     """Device database model."""
 
-    code: str = Field(min_length=1)
-    location: str
+    company: str = Field(min_length=1)
+    title: str
+    job_posting_url: str
+    location: str | None = Field(default=None)
+    description: str | None = Field(default=None)
     created_at: UTCDatetime
 
 
 class DeviceCreate(BaseDocument):
     """Device creation model."""
 
-    code: str = Field(min_length=1)
-    location: str
+    company: str = Field(min_length=1)
+    title: str
+    job_posting_url: str
+    location: str | None = Field(default=None)
+    description: str | None = Field(default=None)
 
 
 class DeviceUpdate(BaseDocument):
     """Device update model."""
 
-    code: str | None = Field(default=None, min_length=1)
+    company: str | None = Field(default=None, min_length=1)
+    title: str | None = Field(default=None)
+    job_posting_url: str | None = Field(default=None)
     location: str | None = Field(default=None)
+    description: str | None = Field(default=None)
