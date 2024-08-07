@@ -2,15 +2,15 @@ from fastapi import FastAPI
 from fasthx import Jinja
 from motorhead import DatabaseProvider
 
-from app_model.device.api import make_api as make_device_api
-from app_model.device.ui_api import make_api as make_device_ui_api
+from app_model.job_application.api import make_api as make_device_api
+from app_model.job_application.ui_api import make_api as make_device_ui_api
 from app_model.sales_event.api import make_api as make_sales_api
 from app_model.telemetry_event.api import make_api as make_telemetry_api
 
 
 def _register_main_pages(app: FastAPI, *, jinja: Jinja) -> None:
     @app.get("/", include_in_schema=False)
-    @jinja.page("app_model/device/devices.jinja")
+    @jinja.page("app_model/job-application/job-applications.jinja")
     def index() -> list[None]:
         return []
 

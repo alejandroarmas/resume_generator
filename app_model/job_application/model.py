@@ -16,9 +16,9 @@ class HXEventTrigger:
 class HXDeviceEvent:
     """Server-side, device-related HTMX events."""
 
-    created = "device.created"
-    deleted = "device.deleted"
-    updated = "device.updated"
+    created = "job.created"
+    deleted = "job.deleted"
+    updated = "job.updated"
 
 
 class Device(Document):

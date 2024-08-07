@@ -1,0 +1,60 @@
+{#
+Table that shows the details of the given job_applications and lets the user interact with them.
+
+Required context:
+- items: The list of job_applications to show in the table.
+#}
+
+{% from "icons/bug.jinja" import bug_mini as bug_icon %}
+{% from "icons/dollar.jinja" import dollar_mini as dollar_icon%}
+{% from "icons/pencil.jinja" import pencil_mini as pencil_icon%}
+{% from "icons/trash.jinja" import trash_mini as trash_icon%}
+
+{% macro table_head() -%}
+<thead>
+    <tr>
+        <th class="w-4"></th>
+        <th class="w-8">ID</th>
+            <th><span class="font-semibold text-info">Company</span></th>
+        <th>Title</th>
+        <th>URL</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Created at</th>
+        <th class="w-8"></th>
+    </tr>
+</thead>
+{%- endmacro %}
+
+{% macro table_row(index, job_application) %}
+<tr class="hover cursor-pointer" hx-trigger="click" hx-get="/job-application/{{ job_application.id }}" hx-target="#dialog-container">
+    <th>{{ index }}</th>
+    <td>{{ job_application.id }}</td>
+    <td><span class="font-semibold text-info">{{ job_application.company }}</span></td>
+    <td>{{ job_application.title }}</td>
+    <td>{{ job_application.job_posting_url }}</td>
+    <td>{{ job_application.location }}</td>
+    <td>{{ job_application.description }}</td>
+    <td>{{ job_application.created_at.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+    <td class="flex flex-row">
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/sales-event/{{ job_application.id }}"
+            hx-target="#dialog-container">{{ dollar_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/telemetry-event/{{ job_application.id }}"
+            hx-target="#dialog-container">{{ bug_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-get="/job-application/{{ job_application.id }}"
+            hx-target="#dialog-container">{{ pencil_icon() }}</button>
+        <button class="btn btn-sm btn-ghost" hx-trigger="click consume" hx-delete="/job-application-ui/{{job_application.id}}"
+            hx-target="#dialog-container">{{ trash_icon("text-error") }}</button>
+    </td>
+</tr>
+{% endmacro %}
+
+<table id="job-application-table" class="table table-pin-cols">
+    {{ table_head() }}
+
+    <tbody>
+        {% for job in items %}
+        {{ table_row(loop.index, job) }}
+        {% endfor %}
+    </tbody>
+</table>

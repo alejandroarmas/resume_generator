@@ -9,7 +9,7 @@ from .model import Device
 from .service import DeviceService
 
 
-def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device-ui") -> APIRouter:
+def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/job-application-ui") -> APIRouter:
     """
     Creates a new API router for device-related HTML-only routes.
 
@@ -20,7 +20,7 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device-u
     """
     # -- Constants
 
-    template_prefix = "app_model/device"
+    template_prefix = "app_model/job-application-ui"
 
     # -- Route dependencies.
 
@@ -34,11 +34,11 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device-u
     api = APIRouter(prefix=prefix)
 
     @api.post("/")
-    @jinja.hx(f"{template_prefix}/device-editor-dialog.jinja", no_data=True)
+    @jinja.hx(f"{template_prefix}/job-application-editor-dialog.jinja", no_data=True)
     def new_device_dialog() -> None: ...
 
     @api.delete("/{id}")
-    @jinja.hx(f"{template_prefix}/delete-device-dialog.jinja", no_data=True)
+    @jinja.hx(f"{template_prefix}/delete-job-application-dialog.jinja", no_data=True)
     async def delete_device_dialog(id: ObjectId, service: DependsService) -> Device:
         # Note: fasthx doesn't current support dynamic template selection (multiple templates)
         #     on a given route, which is why this additional route is needed. Otherwise the

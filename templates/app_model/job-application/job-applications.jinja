@@ -7,23 +7,23 @@ Required context:
 
 {% extends "base.jinja" %}
 
-{% set device_events = "device.created from:body, device.updated from:body, device.deleted from:body" %}
+{% set job_application_events = "job.created from:body, job.updated from:body, job.deleted from:body" %}
 
-{% block title %}Devices{% endblock %}
+{% block title %}Job Applications{% endblock %}
 
 {% block body %}
 <div class="w-full p-4 space-y-1">
     <div class="flex">
         <div class="flex-1">
-            <button class="btn btn-primary" hx-trigger="click" hx-post="/device-ui/" hx-target="#dialog-container">New
+            <button class="btn btn-primary" hx-trigger="click" hx-post="/job-application-ui/" hx-target="#dialog-container">New
                 Job Application</button>
         </div>
         <div class="flex-none">
             <label class="input input-bordered flex items-center gap-2 w-80">
                 {# Active search for devices. #}
                 <input type="search" name="company" class="grow w-full" placeholder="Search by Company"
-                    hx-trigger="input changed delay:500ms, search, {{ device_events }}" hx-get="/device/"
-                    hx-target="#devices-table" />
+                    hx-trigger="input changed delay:500ms, search, {{ job_application_events }}" hx-get="/job-application/"
+                    hx-target="#job-application-table" />
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                     class="h-4 w-4 opacity-70">
                     <path fill-rule="evenodd"
@@ -38,9 +38,9 @@ Required context:
     Lazy-load the table's content and make sure the search input's value is submitted
     so the table immediately shows the correct items.
     #}
-    <div class="overflow-x-auto" hx-trigger="load" hx-get="/device/" hx-target="#devices-table"
+    <div class="overflow-x-auto" hx-trigger="load" hx-get="/job-application/" hx-target="#job-application-table"
         hx-include="input, [name='code']" hx-inherit="hx-get">
-        {% include "app_model/device/devices-table.jinja" %}
+        {% include "app_model/job-application/job-application-table.jinja" %}
     </div>
 </div>
 {% endblock %}

@@ -2,6 +2,6 @@ from motorhead import AgnosticDatabase
 
 
 async def create_indexes(database: AgnosticDatabase) -> None:
-    from .device.service import DeviceService
+    from .job_application.service import DeviceService
 
     await DeviceService(database).create_indexes()

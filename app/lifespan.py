@@ -8,8 +8,8 @@ from motorhead import AgnosticDatabase
 
 async def _create_demo_data(db: AgnosticDatabase) -> None:
     """Creates some data for the application."""
-    from app_model.device.model import DeviceCreate
-    from app_model.device.service import DeviceService
+    from app_model.job_application.model import DeviceCreate
+    from app_model.job_application.service import DeviceService
 
     svc = DeviceService(db)
     for company, title, job_url, location, description in (

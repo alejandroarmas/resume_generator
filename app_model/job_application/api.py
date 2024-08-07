@@ -9,7 +9,7 @@ from .model import Device, DeviceCreate, DeviceUpdate, HXDeviceEvent, HXEventTri
 from .service import DeviceService
 
 
-def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device") -> APIRouter:  # noqa: C901
+def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/job-application") -> APIRouter:  # noqa: C901
     """
     Creates a new API router for interacting with devices.
 
@@ -23,7 +23,7 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device")
     """
     # -- Constants
 
-    template_prefix = "app_model/device"
+    template_prefix = "app_model/job-application"
 
     # -- Route dependencies.
 
@@ -37,7 +37,7 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device")
     api = APIRouter(prefix=prefix)
 
     @api.get("/")
-    @jinja.hx(f"{template_prefix}/devices-table.jinja")
+    @jinja.hx(f"{template_prefix}/job-application-table.jinja")
     async def get_all(service: DependsService, company: str | None = None) -> list[Device]:
         try:
             query = None if company is None else {"company": {"$regex": company}}  # Basic substring search.
@@ -57,7 +57,7 @@ def make_api(*, get_db: DatabaseProvider, jinja: Jinja, prefix: str = "/device")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Creation failed.") from e
 
     @api.get("/{id}")
-    @jinja.hx(f"{template_prefix}/device-editor-dialog.jinja")
+    @jinja.hx(f"{template_prefix}/job-application-editor-dialog.jinja")
     async def get_by_id(id: ObjectId, service: DependsService) -> Device:
         result = await service.get_by_id(id)
         if result is None:
